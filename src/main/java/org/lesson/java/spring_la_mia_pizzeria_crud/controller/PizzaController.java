@@ -6,6 +6,7 @@ import org.lesson.java.spring_la_mia_pizzeria_crud.model.Offerta;
 import org.lesson.java.spring_la_mia_pizzeria_crud.model.Pizza;
 import org.lesson.java.spring_la_mia_pizzeria_crud.repository.IngredienteRepository;
 import org.lesson.java.spring_la_mia_pizzeria_crud.repository.PizzaRepository;
+import org.lesson.java.spring_la_mia_pizzeria_crud.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,21 +26,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 
 @Controller
-@RequestMapping("pizze")
+@RequestMapping("/pizze")
 public class PizzaController {
+    @Autowired
+    private IngredienteRepository ingredienteRepository;
 
-    private final IngredienteRepository ingredienteRepository;
-
-      @Autowired
-    private PizzaRepository repository;
-
-    PizzaController(IngredienteRepository ingredienteRepository) {
-        this.ingredienteRepository = ingredienteRepository;
-    }
+   
+     @Autowired
+     private PizzaService service;
 
     @GetMapping()
     public String pizze(Model model) {
-        List<Pizza> pizze = repository.findAll();
+        List<Pizza> pizze = service.findAll();
         model.addAttribute("pizze", pizze );
         model.addAttribute("ingredienti", ingredienteRepository.findAll());
         return "IndexPizze";
@@ -49,7 +47,7 @@ public class PizzaController {
     @GetMapping("/{id}")
     public String dettaglioPizza(Model model, @PathVariable("id") int id) {
         // prendo tutte le pizze e le faccio diventare una lista
-        List<Pizza> pizze = repository.findAll();
+        List<Pizza> pizze = service.findAll();
         // faccio un ciclo for su tutta la lista
         for (Pizza pizza : pizze) {
             // faccio un if che mi controlla gli id, quando trovo quello corrispondente allora accedo
@@ -65,7 +63,7 @@ public class PizzaController {
 
     @GetMapping("/search")
     public String searchByName(@RequestParam(name="name") String name, Model model) {
-        List<Pizza> pizze = repository.findByNameContaining(name);
+        List<Pizza> pizze = service.findName(name);
         model.addAttribute("pizze" , pizze);
         return "IndexPizze";
         
@@ -84,7 +82,7 @@ public class PizzaController {
     public String store(@Valid @ModelAttribute ("pizza") Pizza PizzaForm, BindingResult bindingResult, Model model) {
         if(bindingResult.hasErrors()){
             return "create";}
-            repository.save(PizzaForm);
+            service.create(PizzaForm);
         
         return "redirect:/pizze";
     }
@@ -93,7 +91,7 @@ public class PizzaController {
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable ("id") Integer id) {
-        repository.deleteById(id);
+        service.delete(id);
         
         return "redirect:/pizze";
     }
@@ -102,7 +100,7 @@ public class PizzaController {
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
-        model.addAttribute("pizza", repository.findById(id).get());
+        model.addAttribute("pizza", service.getById(id));
         model.addAttribute("ingredienti", ingredienteRepository.findAll());
         return "edit";
     }
@@ -111,7 +109,7 @@ public class PizzaController {
     public String update(@Valid @ModelAttribute ("pizza") Pizza PizzaForm, BindingResult bindingResult, Model model) {
         if(bindingResult.hasErrors()){
             return "edit";}
-            repository.save(PizzaForm);
+            service.update(PizzaForm);
         
         return "redirect:/pizze";
     }
@@ -121,7 +119,7 @@ public class PizzaController {
     @GetMapping("/{id}/offerta")
     public String offerta(@PathVariable Integer id, Model model) {
         Offerta offerta = new Offerta();
-        offerta.setPizza(repository.findById(id).get());
+        offerta.setPizza(service.getById(id));
         model.addAttribute("offerta", offerta);
         return "offerta/create";
     }

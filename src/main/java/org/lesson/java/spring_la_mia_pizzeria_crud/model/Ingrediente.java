@@ -2,6 +2,8 @@ package org.lesson.java.spring_la_mia_pizzeria_crud.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,6 +15,7 @@ import jakarta.validation.constraints.NotBlank;
 public class Ingrediente {
 
     @ManyToMany(mappedBy = "ingredienti")
+    @JsonBackReference
     private List<Pizza> pizze;
      // creo le var d istanza delle pizza, in questo caso sono le colonne della tabella
     @Id

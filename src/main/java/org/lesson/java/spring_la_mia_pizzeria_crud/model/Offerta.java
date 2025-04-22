@@ -2,6 +2,10 @@ package org.lesson.java.spring_la_mia_pizzeria_crud.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,6 +21,7 @@ public class Offerta {
 
     @ManyToOne
     @JoinColumn(name = "pizza_id", nullable = false)
+    @JsonBackReference
     private Pizza pizza;
 
      // creo le var d istanza delle pizza, in questo caso sono le colonne della tabella

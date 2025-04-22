@@ -5,6 +5,10 @@ import java.util.List;
 
 import org.hibernate.annotations.ManyToAny;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,15 +23,18 @@ import jakarta.validation.constraints.NotNull;
 
 // imposto come entity
 @Entity
+@JsonPropertyOrder({ "id", "name", "descrizione", "foto", "prezzo", "ingredienti", "offerte" })
 public class Pizza {
 // creo la relazione one to many per la tabella delle offerte
 @OneToMany(mappedBy = "pizza", cascade = {CascadeType.REMOVE})
+@JsonManagedReference
 private List<Offerta> offerte;
 
 @ManyToMany
 @JoinTable( name = "ingrediente_pizza",
  joinColumns = @JoinColumn(name = "pizza_id"),
  inverseJoinColumns = @JoinColumn(name = "ingrediente_id"))
+ @JsonManagedReference
 private List<Ingrediente> ingredienti;
 
     public List<Ingrediente> getIngredienti() {
