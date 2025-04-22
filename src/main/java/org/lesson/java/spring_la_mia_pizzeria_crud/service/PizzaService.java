@@ -31,9 +31,17 @@ public class PizzaService {
    public Pizza update(Pizza pizza){
     return repository.save(pizza);
    }
+// gestisco la casistica in cui l'id non viene trovato
+   public Optional<Pizza> findById(Integer id){
+    return repository.findById(id);
+   }
 // FINDiD
 public Pizza getById(Integer id){
-    return repository.findById(id).get();
+    Optional<Pizza> pizzaAttempt = repository.findById(id);
+    if(pizzaAttempt.isEmpty()){
+
+    }
+    return pizzaAttempt.get();
 }
 
 // DELETE
