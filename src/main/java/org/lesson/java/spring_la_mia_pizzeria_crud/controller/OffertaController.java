@@ -1,9 +1,7 @@
 package org.lesson.java.spring_la_mia_pizzeria_crud.controller;
 
 import org.lesson.java.spring_la_mia_pizzeria_crud.model.Offerta;
-import org.lesson.java.spring_la_mia_pizzeria_crud.model.Pizza;
 import org.lesson.java.spring_la_mia_pizzeria_crud.repository.OffertaRepository;
-import org.lesson.java.spring_la_mia_pizzeria_crud.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 

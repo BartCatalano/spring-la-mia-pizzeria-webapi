@@ -2,9 +2,6 @@ package org.lesson.java.spring_la_mia_pizzeria_crud.service;
 
 import java.util.List;
 import java.util.Optional;
-
-import javax.naming.NameNotFoundException;
-
 import org.lesson.java.spring_la_mia_pizzeria_crud.model.Pizza;
 import org.lesson.java.spring_la_mia_pizzeria_crud.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;

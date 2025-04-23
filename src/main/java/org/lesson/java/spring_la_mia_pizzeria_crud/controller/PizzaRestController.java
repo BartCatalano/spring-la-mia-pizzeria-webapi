@@ -7,17 +7,16 @@ import org.lesson.java.spring_la_mia_pizzeria_crud.model.Pizza;
 import org.lesson.java.spring_la_mia_pizzeria_crud.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 
@@ -50,8 +49,8 @@ public class PizzaRestController {
         return new ResponseEntity<Pizza>(service.create(pizza),HttpStatus.OK);
     }
     // UPDATE
-    @PostMapping
-    public ResponseEntity<Pizza> UPDATE(@RequestBody Pizza pizza) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Pizza> update(@RequestBody Pizza pizza) {
         return new ResponseEntity<Pizza>(service.update(pizza),HttpStatus.OK);
     }
 

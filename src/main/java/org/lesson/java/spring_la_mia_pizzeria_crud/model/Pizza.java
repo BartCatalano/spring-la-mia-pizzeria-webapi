@@ -2,13 +2,8 @@ package org.lesson.java.spring_la_mia_pizzeria_crud.model;
 
 import java.math.BigDecimal;
 import java.util.List;
-
-import org.hibernate.annotations.ManyToAny;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
